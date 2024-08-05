@@ -17,19 +17,16 @@ export async function POST(req: Request) {
     )) as string
 
     if (!idToAdd) {
-      console.log("1")
       return new Response('This person does not exist.', { status: 400 })
     }
 
     const session = await getServerSession(authOptions)
 
     if (!session) {
-      console.log("2")
       return new Response('Unauthorized', { status: 401 })
     }
 
     if (idToAdd === session.user.id) {
-      console.log("3")
       return new Response('You cannot add yourself as a friend', {
         status: 400,
       })
@@ -43,7 +40,6 @@ export async function POST(req: Request) {
     )) as 0 | 1
 
     if (isAlreadyAdded) {
-      console.log("4")
       return new Response('Already added this user', { status: 400 })
     }
 
@@ -55,19 +51,15 @@ export async function POST(req: Request) {
     )) as 0 | 1
 
     if (isAlreadyFriends) {
-      console.log("5")
       return new Response('Already friends with this user', { status: 400 })
     }
-
-    console.log("6")
     await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
 
     return new Response('OK')
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response('Invalid request payload', { status: 422 })
-    }
-    console.log("7")
+    }   
     return new Response('Invalid request', { status: 400 })
   }
 }
