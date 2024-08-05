@@ -6,7 +6,7 @@ declare module 'next-auth/jwt' {
     }
   }
   
-  declare module 'next-auth' {
+  declare module 'next-authh' {
     interface Session {
       user: User & {
         id: UserId
