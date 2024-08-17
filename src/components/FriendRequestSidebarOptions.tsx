@@ -1,14 +1,14 @@
 "use client";
 import { User } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 
 interface FriendRequestSidebarOptionsProps {
   sessionId: string;
   initialUnseenRequestCount: number;
 }
 
-const FriendRequestSidebarOptions = ({
+const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = ({
   sessionId,
   initialUnseenRequestCount,
 }) => {
